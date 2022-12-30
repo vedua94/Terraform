@@ -6,3 +6,4 @@ subnet_name           = "default"
 external_enabled      = true
 project               = "seraphic-ripple-372512"
 region                = "europe-west2"
+
