@@ -25,10 +25,16 @@ pipeline {
                 terraform plan
                 """
                 input(message: 'Click "proceed" to approve the above Terraform plan')
-                """
+                sh """
                 terraform apply --auto-approve
                 """
             }
         }
-   }    
+   }
+   post {
+        always {
+            echo '###### cleaning WorkSpace #######'
+            cleanWs notFailBuild: true, patterns: [[pattern: '**/creds.json', type: 'INCLUDE'], [pattern: '**/.password.txt', type: 'INCLUDE'],[pattern: '**/gcp_creds.json', type: 'INCLUDE']]
+        }
+    }    
 }
