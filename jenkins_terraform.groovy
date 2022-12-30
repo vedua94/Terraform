@@ -25,7 +25,7 @@ pipeline {
                 terraform plan
                 """
                 input(message: 'Click "proceed" to approve the above Terraform plan')
-                """
+                sh """
                 terraform apply --auto-approve
                 """
             }
