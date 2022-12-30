@@ -14,7 +14,7 @@ pipeline {
                 withCredentials([file(credentialsId: "gcloud_cred", variable: 'GC_KEY')]) {
                     sh """
                     cp $GC_KEY ${WORKSPACE}/cred.json
-   
+                    chmod 755 cred.json
                     """
                 }   
             }
