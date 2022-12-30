@@ -13,8 +13,8 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: "gcloud_cred", variable: 'GC_KEY')]) {
                     sh """
-                    sudo cp $GC_KEY ${WORKSPACE}/cred.json
-                    sudo chmod 755 cred.json
+                    cp $GC_KEY ${WORKSPACE}/cred.json
+   
                     """
                 }   
             }
