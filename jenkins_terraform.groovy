@@ -22,7 +22,7 @@ pipeline {
             steps {
                 sh """
                 terraform init
-                terraform plan
+                terraform plan -out=plan.tfplan
                 """
                 input(message: 'Click "proceed" to approve the above Terraform plan')
                 sh """
@@ -34,7 +34,7 @@ pipeline {
    post {
         always {
             echo '###### cleaning WorkSpace #######'
-            cleanWs notFailBuild: true, patterns: [[pattern: '**/creds.json', type: 'INCLUDE'], [pattern: '**/.password.txt', type: 'INCLUDE'],[pattern: '**/gcp_creds.json', type: 'INCLUDE']]
+            cleanWs notFailBuild: true, patterns: [[pattern: '**/creds.json', type: 'INCLUDE']]
         }
     }    
 }
