@@ -22,6 +22,7 @@ pipeline {
         }
         stage('terraform apply/destroy') {
             steps {
+                script{
                 if (params.ACTION =='apply') 
                 sh """
                 terraform init 
@@ -39,6 +40,7 @@ pipeline {
                 """
                 else
                 echo "Nothing to change"
+                }
             }
         }
    }
