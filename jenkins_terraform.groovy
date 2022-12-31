@@ -1,6 +1,7 @@
-pipeline {
+pipeline { 
   agent any
-
+  options {
+        ansiColor('xterm')
   parameters {
     choice(name: 'ENV', choices: ['sb'], description: 'Select the environment to deploy into.')
     choice(name: 'TYPE', choices: ['cluster', 'customer'], description: 'Select whether this is a cluster deployment or a customer deployment.')
@@ -37,4 +38,5 @@ pipeline {
             cleanWs notFailBuild: true, patterns: [[pattern: '/creds.json', type: 'INCLUDE']]
         }
     }    
+}
 }
