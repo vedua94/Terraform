@@ -21,7 +21,7 @@ pipeline {
         stage('terraform_task'){
             steps {
                 sh """
-                terraform init -reconfigure
+                terraform init 
                 terraform plan -out=plan.tfplan
                 """
                 input(message: 'Click "proceed" to approve the above Terraform plan')
