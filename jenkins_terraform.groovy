@@ -21,7 +21,7 @@ pipeline {
         stage('terraform_task'){
             steps {
                 sh """
-                terraform init
+                terraform init -reconfigure
                 terraform plan -out=plan.tfplan
                 """
                 input(message: 'Click "proceed" to approve the above Terraform plan')
@@ -34,7 +34,7 @@ pipeline {
    post {
         always {
             echo '###### cleaning WorkSpace #######'
-            cleanWs notFailBuild: true, patterns: [[pattern: '**/creds.json', type: 'INCLUDE']]
+            cleanWs notFailBuild: true, patterns: [[pattern: '/creds.json', type: 'INCLUDE']]
         }
     }    
 }
