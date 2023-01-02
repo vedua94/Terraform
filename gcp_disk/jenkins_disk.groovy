@@ -20,18 +20,19 @@ pipeline {
                 }   
             }
         }
-        stage('execute_playbook')
+        stage('execute_playbook'){
              steps{
              sh """
              cd ${WORKSPACE}/gcp_disk/
              sudo ansible-playbook update_disk.yaml -e "disk_project=${ProjectID} disk_zone=${Zone} disk_name=${Diskname} disk_size=${Disksize}"
              """
              } 
-  }               
-  post {
-        always {
+       }               
+       post {
+            always {
             echo '###### cleaning WorkSpace #######'
             cleanWs notFailBuild: true, patterns: [[pattern: '**/creds.json', type: 'INCLUDE']]
+            }
         }
-    }
-}     
+    }  
+}    
