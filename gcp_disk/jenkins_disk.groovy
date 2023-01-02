@@ -27,12 +27,13 @@ pipeline {
              sudo ansible-playbook update_disk.yaml -e "disk_project=${ProjectID} disk_zone=${Zone} disk_name=${Diskname} disk_size=${Disksize}"
              """
              } 
-       }               
-       post {
-            always {
-            echo '###### cleaning WorkSpace #######'
-            cleanWs notFailBuild: true, patterns: [[pattern: '**/creds.json', type: 'INCLUDE']]
-            }
+       } 
+  }                 
+    post {
+        always {
+        echo '###### cleaning WorkSpace #######'
+        cleanWs notFailBuild: true, patterns: [[pattern: '**/creds.json', type: 'INCLUDE']]
         }
-    }  
+    }
+      
 }    
