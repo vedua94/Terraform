@@ -6,9 +6,9 @@ pipeline {
   parameters {
     
     choice(name: 'ProjectID', choices: ['seraphic-ripple-372512', 'terraform-3325'], description: 'Select Project ID.')
-    string(name: 'Zone', choices: ['us-central1-a', 'us-central1-b'], description: 'Select zone.')
+    choice(name: 'Zone', choices: ['us-central1-a', 'us-central1-b'], description: 'Select zone.')
     string(name: 'Diskname', defaultValue: '', description: 'Name of the Disk')
-    choice(name: 'Disksize', defaultValue: '', description: 'Name of the Disk')
+    string(name: 'Disksize', defaultValue: '', description: 'Name of the Disk')
   }
   stages {
         stage('copy_credential') {
