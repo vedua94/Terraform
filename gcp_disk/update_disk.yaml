@@ -1,0 +1,13 @@
+- name: Create Compute Engine instances
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: update a disk
+    google.cloud.gcp_compute_disk:
+      name: {{disk_name}}
+      size_gb: {{disk_size}}
+      zone: {{disk_zone}}
+      project: {{disk_project}}
+      auth_kind: serviceaccount
+      service_account_file: "cred.json"
+      state: present
