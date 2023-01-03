@@ -1,5 +1,5 @@
 - name: Update disk
-  hosts: all
+  hosts: localhost
   gather_facts: no
   vars: 
     disk_name:
