@@ -1,5 +1,5 @@
 - name: Create Compute Engine instances
-  hosts: localhost
+  hosts: all
   gather_facts: no
   vars: 
     disk_name:
@@ -17,3 +17,4 @@
       auth_kind: serviceaccount
       service_account_file: "cred.json"
       state: present
+    delegate_to: localhost
