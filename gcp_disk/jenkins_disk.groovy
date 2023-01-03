@@ -29,11 +29,11 @@ pipeline {
              } 
        } 
   }                 
-    post {
-        always {
-        echo '###### cleaning WorkSpace #######'
-        cleanWs notFailBuild: true, patterns: [[pattern: '**/creds.json', type: 'INCLUDE']]
-        }
-    }
+ //   post {
+ //       always {
+ //       echo '###### cleaning WorkSpace #######'
+ //       cleanWs notFailBuild: true, patterns: [[pattern: '**/creds.json', type: 'INCLUDE']]
+ //       }
+ //   }
       
 }    
