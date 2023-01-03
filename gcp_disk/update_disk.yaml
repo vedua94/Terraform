@@ -1,4 +1,4 @@
-- name: Create Compute Engine instances
+- name: Update disk
   hosts: all
   gather_facts: no
   vars: 
