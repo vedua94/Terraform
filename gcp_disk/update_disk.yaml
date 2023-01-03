@@ -1,6 +1,12 @@
 - name: Create Compute Engine instances
   hosts: localhost
   gather_facts: no
+  vars: 
+    disk_name:
+    disk_size:
+    disk_zone:
+    disk_project:
+    
   tasks:
   - name: update a disk
     google.cloud.gcp_compute_disk:
