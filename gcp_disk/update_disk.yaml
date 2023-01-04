@@ -1,20 +1,33 @@
-- name: Update disk
-  hosts: localhost
-  gather_facts: no
-  vars: 
-    disk_name:
-    disk_size:
-    disk_zone:
-    disk_project:
-
+- name: Play to loop over disks
+  hosts: all
+  gather_facts: false
+  vars:
+     disk_size:
+     disk_name:
   tasks:
-  - name: update a disk
-    google.cloud.gcp_compute_disk:
-      name: "{{disk_name}}"
-      size_gb: "{{disk_size}}"
-      zone: "{{disk_zone}}"
-      project: "{{disk_project}}"
-      auth_kind: serviceaccount
-      service_account_file: "cred.json"
-      state: present
-    delegate_to: localhost
+    - name: print the hosts
+      debug:
+        msg: "{{ansible_play_hosts_all}}"
+
+    - name: print the disks
+      debug:
+        msg: "{{item['deviceName']}}"
+      loop: "{{disks}}"
+      loop_control:
+        label: "{{ item['deviceName'] }}"
+      register: disk_info
+
+    - name: Conditional test
+      fail:
+        msg: "Disk not found not"
+      when: disks|selectattr("deviceName", "equalto", disk_name) | length == 0
+    - name: update a disk
+      google.cloud.gcp_compute_disk:
+        name: "{{ disk_name }}"
+        size_gb: "{{ disk_size }}"
+        zone: "{{ zone }}"
+        project: "{{ project }}"
+        auth_kind: serviceaccount
+        service_account_file: "cred.json"
+        state: present
+      delegate_to: localhost  

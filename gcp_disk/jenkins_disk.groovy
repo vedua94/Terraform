@@ -6,9 +6,9 @@ pipeline {
   parameters {
     
     choice(name: 'ProjectID', choices: ['seraphic-ripple-372512', 'terraform-3325'], description: 'Select Project ID.')
-    choice(name: 'Zone', choices: ['us-central1-a', 'us-central1-b'], description: 'Select zone.')
     string(name: 'Diskname', defaultValue: '', description: 'Name of the Disk')
-    string(name: 'Disksize', defaultValue: '', description: 'Name of the Disk')
+    string(name: 'Disksize', defaultValue: '', description: 'Please provide total disk size in GB')
+    string(name: 'Instance', defaultValue: '', description: 'Name of the Instanace')
   }
   stages {
         stage('copy_credential') {
@@ -24,7 +24,13 @@ pipeline {
              steps{
              sh """
              cd ${WORKSPACE}/gcp_disk/
-             ansible-playbook update_disk.yaml -e "disk_project=${ProjectID} disk_zone=${Zone} disk_name=${Diskname} disk_size=${Disksize}"
+             python3 inventory.py
+             ansible ${Instance} -i gcp_compute.yaml --list-hosts
+             """
+                input message: 'Please verify the Instance', ok: 'Approve'               
+             sh """   
+             cd ${WORKSPACE}/gcp_disk/
+             ansible-playbook update_disk.yaml -i gcp_compute.yaml -l ${Instance} -e "disk_name=${Diskname} disk_size=${Disksize}"
              """
              } 
        } 
