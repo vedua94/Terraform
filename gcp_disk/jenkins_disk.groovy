@@ -24,7 +24,7 @@ pipeline {
              steps{
              sh """
              cd ${WORKSPACE}/gcp_disk/
-             python3 inventory.py
+             /usr/local/bin/python3.9 inventory.py
              ansible ${Instance} -i gcp_compute.yaml --list-hosts
              """
                 input message: 'Please verify the Instance', ok: 'Approve'               
