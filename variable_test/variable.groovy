@@ -13,7 +13,7 @@ pipeline {
         stage('execute_playbook'){
              steps{
              sh """
-             pwd
+             echo ${WORKSPACE}
              cd variable_test
              chmod 755 task.sh
              bash task.sh
